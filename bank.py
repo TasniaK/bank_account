@@ -2,7 +2,7 @@
 from datetime import datetime, timedelta
 import time
 
-#classes used as blueprints for functions
+#classes used as blueprints
 #external "main" code runs class Bank, class Bank runs class Account.
 class Account():
 	def __init__(self, name):
