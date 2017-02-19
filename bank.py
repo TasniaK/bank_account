@@ -11,21 +11,31 @@ class Account():
 		self.balance = 0.0
 		self.account_created = datetime.now()
 		#time stamp for each account created
+		self.interest = 1.1
 
-	def apply_interest(self, interest):
-		self.balance *= interest
+	def apply_interest(self):
+		self.balance *= self.interest
 
+
+class SavingAccount(Account):
+	def __init__(self, name):
+		super().__init__(name)
+		self.interest = 1.5
+
+class CurrentAccount(Account):
+	def __init__(self, name):
+		super().__init__(name)
+		self.interest = 1.0
 
 class Bank():
 	def __init__(self):
 		#accounts created in Account stored as list in Bank
 		self.accounts = []
-		self.interest = 1.1
 		#set interval at which interest is applied to per minute
 		self.interest_interval = timedelta(minutes=1)
 	
 
-	def create_account(self, name):
+	def create_account(self, name, account_type):
 		account = Account(name)
 		self.accounts.append(account)
 
@@ -34,15 +44,22 @@ class Bank():
 		#check against set interval
 		for account in self.accounts:
 			if datetime.now() - account.account_created > self.interest_interval:
-				account.apply_interest(self.interest)
+				account.apply_interest()
 		
 
 if __name__ == "__main__":
 	#import pdb
 	#pdb.set_trace()
-	bank = Bank()
+	"""bank = Bank()
 	bank.create_account("Tasnia")
 	bank.accounts[0].balance = 1.0
 	time.sleep(60)
 	bank.apply_interest()
-	print "£" + str(bank.accounts[0].balance)
+	print "£" + str(bank.accounts[0].balance)"""
+
+	from random import randint
+
+	class_list = [Account, SavingAccount, CurrentAccount]
+
+	for x in range(5):
+		bank = Bank()
