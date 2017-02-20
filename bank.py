@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+#python3
 from datetime import datetime, timedelta
 import time
 from random import randint
@@ -18,7 +18,7 @@ class Account():
 		self.balance *= self.interest
 
 	def __repr__(self):
-		return "Name: %s, Account: %s Balance = %s" % (self.name, self.__class__.__name__, self.balance)
+		return "Name: %s, Account: %s, Balance = £ %s" % (self.name, self.__class__.__name__, self.balance)
 
 
 class SavingAccount(Account):
@@ -62,8 +62,8 @@ def create_random_accounts(bank):
 		
 
 if __name__ == "__main__":
-	import pdb
-	pdb.set_trace()
+	#import pdb
+	#pdb.set_trace()
 	"""bank = Bank()
 	bank.create_account("Tasnia")
 	bank.accounts[0].balance = 1.0
