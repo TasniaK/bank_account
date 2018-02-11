@@ -1,4 +1,4 @@
-#python3
+# -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 import time
 from random import randint
@@ -32,12 +32,11 @@ class CurrentAccount(Account):
 		self.interest = 1.0
 
 class Bank():
-	def __init__(self):
+	def __init__(self, interest_interval=5):
 		#accounts created in Account stored as list in Bank
 		self.accounts = []
 		#set interval at which interest is applied to per second
-		self.interest_interval = timedelta(seconds=5)
-	
+		self.interest_interval = timedelta(seconds=interest_interval)
 
 	def create_account(self, name, account_type, account_balance):
 		account_types = {"account": Account, "saving account": SavingAccount, "current account": CurrentAccount}
@@ -46,11 +45,17 @@ class Bank():
 		self.accounts.append(account)
 
 	def apply_interest(self):
-		#conditions to apply interest: loop through accounts list in Bank, time now is greater than time past
-		#check against set interval
+		#calculate time past
+		#calculate how many multiples of the interest interval time past is
+		#apply interest as a multiple of that
+		
 		for account in self.accounts:
-			if datetime.now() - account.account_created > self.interest_interval:
+			time_past = datetime.now() - account.account_created
+			interest_interval_multiples = time_past.seconds/self.interest_interval.seconds
+			interest_interval_multiples = int(round(interest_interval_multiples))
+			for i in range(interest_interval_multiples):
 				account.apply_interest()
+
 
 def create_random_accounts(bank):
 
